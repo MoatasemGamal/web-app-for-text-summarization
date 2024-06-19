@@ -1,4 +1,4 @@
-# Daghfal
+# Text Summarization with Daghfal micro php framework
 
 ## About daghfal
 
