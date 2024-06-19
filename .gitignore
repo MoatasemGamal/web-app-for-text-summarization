@@ -1,0 +1,5 @@
+nbproject/
+.vscode/
+config.php
+vendor
+public/uploads/*
