@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
 body {
   font-family: "Arial", sans-serif;
   background-color: #f8f9fa;
@@ -57,4 +59,28 @@ body {
   .api-container {
     padding: 20px;
   }
+}
+
+/* styles.css */
+
+body {
+  font-family: "Amiri", serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.form-check-label {
+  font-family: "Amiri", serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.form-control {
+  font-family: "Amiri", serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+textarea {
+  font-size: larger;
 }

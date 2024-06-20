@@ -24,7 +24,8 @@
         <div class="col-md-6">
           <div class="form-floating mb-3 position-relative">
             <textarea name="text" class="form-control bg-light-subtle" placeholder="Full Text" id="fullText"
-              style="height: calc(100vh - 400px)" oninput="handleInput()"><?= $text ?></textarea>
+              style="height: calc(100vh - 400px)" oninput="handleInput()"
+              dir="<?= checkLangDirection($text) ?>"><?= $text ?></textarea>
             <label for="fullText">Full Text</label>
             <div class="position-absolute bottom-0 start-0 m-1">
               <a class="rounded-circle btn btn-primary border-circle shadow me-1" title="Upload File">
@@ -54,6 +55,8 @@
                 </option>
                 <option value="transformer" <?= $model == 'transformer' ? 'selected' : '' ?>>transformer Abstractive
                 </option>
+                <option value="pegasus" <?= $model == 'pegasus' ? 'selected' : '' ?>>pegasus Abstractive (En)
+                </option>
                 <option value="textRank" <?= $model == 'textRank' ? 'selected' : '' ?>>Text Rank</option>
               </select>
               <div class="input-group" id="summaryLengthInput" style="display: none">
@@ -74,7 +77,7 @@
         <div class="col-md-6">
           <div class="form-floating mb-3">
             <p class="overflow-auto form-control bg-light-subtle" placeholder="Summarized Text" id="summarizedText"
-              style="height: calc(100vh - 400px)" disabled><?= $summary ?></p>
+              style="height: calc(100vh - 400px)" dir="<?= checkLangDirection($summary) ?>" disabled><?= $summary ?></p>
             <label for="summarizedText">Summarized Text</label>
           </div>
           <form id="feedbackForm" method="POST" action="/feedback">
@@ -99,7 +102,8 @@
           <div class="col-md-12">
             <div class="form-floating mb-3 position-relative">
               <textarea name="text" class="form-control bg-light-subtle" placeholder="Full Text" id="fullText"
-                style="height: calc(100vh - 400px)" oninput="handleInput()"><?= $text ?></textarea>
+                style="height: calc(100vh - 400px)" oninput="handleInput()"
+                dir="<?= checkLangDirection($text) ?>"><?= $text ?></textarea>
               <label for="fullText">Full Text</label>
               <div class="position-absolute bottom-0 start-0 m-1">
                 <a class="rounded-circle btn btn-primary border-circle shadow me-1" title="Upload File">
@@ -131,6 +135,8 @@
                   <option value="transformer" <?= $model == 'transformer' ? 'selected' : '' ?>>Transformer Abstractive
                   </option>
                   <option value="textRank" <?= $model == 'textRank' ? 'selected' : '' ?>>Text Rank</option>
+                  <option value="pegasus" <?= $model == 'pegasus' ? 'selected' : '' ?>>pegasus Abstractive (En)
+                  </option>
                 </select>
                 <div class="input-group" id="summaryLengthInput" style="display: none">
                   <select class="form-select" id="summaryLengthSelect">
@@ -155,7 +161,8 @@
           <div class="col-md-12">
             <div class="form-floating mb-3">
               <p class="overflow-auto form-control bg-light-subtle" placeholder="Summarized Text" id="summarizedText"
-                style="height: calc(100vh - 400px)" disabled><?= $summary ?></p>
+                style="height: calc(100vh - 400px)" dir="<?= checkLangDirection($summary) ?>" disabled><?= $summary ?>
+              </p>
               <label for="summarizedText">Summarized Text</label>
             </div>
             <form id="feedbackForm" method="POST" action="/feedback">

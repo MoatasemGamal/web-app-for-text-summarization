@@ -158,6 +158,78 @@ if (!function_exists("summarize")) {
 }
 
 
+
+function sendSummaryRequest($text, $model, $summaryLength, $file_path = null)
+{
+    $url = 'https://8000-01j0rxmpy4b3a7fq5db4ntmdme.cloudspaces.litng.ai/';
+
+    if ($file_path) {
+        $file_info = pathinfo($file_path);
+        $extension = strtolower($file_info['extension']);
+
+        if ($extension === 'txt') {
+            $content = file_get_contents($file_path);
+            return sendSummaryRequest($content, $model, $summaryLength, $file_path = null);
+        }
+        if ($extension == 'pdf') {
+            $url .= 'summarize-pdf';
+        } elseif (in_array($extension, ['mp3', 'wav', 'flac', 'aac', 'ogg', 'm4a'])) {
+            $url .= 'summarize-audio';
+        } else {
+            return ["error" => "Unsupported file type"];
+        }
+
+        $cfile = curl_file_create($file_path);
+        $postfields = [
+            'file' => $cfile,
+            'model' => $model,
+            'summaryLength' => $summaryLength
+        ];
+    } else {
+        $url .= 'summarize';
+        $postfields = json_encode([
+            'text' => $text,
+            'model' => $model,
+            'summaryLength' => $summaryLength
+        ]);
+    }
+
+    $ch = curl_init($url);
+
+    if ($file_path) {
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postfields);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    } else {
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postfields);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($postfields)
+        ]);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    }
+
+    $response = curl_exec($ch);
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+    if (curl_errno($ch)) {
+        return ["error" => curl_error($ch)];
+    }
+
+    curl_close($ch);
+
+    if ($http_code != 200) {
+        return ["error" => "Request failed with status code $http_code"];
+    }
+
+    return json_decode($response, true);
+}
+
+
+
+
+
 function checkLangDirection($text)
 {
     $arabicCount = 0;

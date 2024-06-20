@@ -58,26 +58,28 @@ class SummaryController extends BaseController
                 //$errors['file'] = "Failed to move uploaded file";
             }
         }
-        if (!is_null($filePath))
-            $text = processFile($filePath);
 
         $text = trim($text);
 
-        if (!is_null($filePath) && empty($text))
-            $errors['file'] = "can't extract text from this file";
-
-        if (empty($text) || strlen($text) < 100)
+        if ((is_null($filePath) && empty($text)) || (is_null($filePath) && strlen($text) < 100))
             $errors['text'] = "text length must be more than 100 char";
 
+        // pre($errors);
         if (!empty($errors))
             return view('summarize', [
                 'text' => $_POST['text'],
                 'model' => $_POST['model'],
+                'summary' => '<div class="alert alert-danger">' . implode('<br>', array_map('htmlspecialchars', $errors)) . '</div>',
                 'id' => '',
                 'errors' => $errors
             ]);
 
-        $output = summarize($text, $model, $summaryLength);
+        if (is_null($filePath))
+            $output = sendSummaryRequest($text, $model, $summaryLength);
+        else
+            $output = sendSummaryRequest($text, $model, $summaryLength, $filePath);
+
+        $output = $output['summary'];
         $output['model'] = $model;
         if ($model == 'textRank')
             $output['length'] = $summaryLength;

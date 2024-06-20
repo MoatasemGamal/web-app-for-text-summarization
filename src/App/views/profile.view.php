@@ -1,7 +1,7 @@
 @extends('main')
 @section('title', 'profile')
 @section('content')
-<div class="container d-flex justify-content-center align-items-center my-5" style="height: 70vh">
+<div class="container d-flex justify-content-center align-items-center my-5" style="height: 90vh">
     <div class="profile-container p-4 rounded shadow bg-white" style="max-width: 600px; width: 100%">
         <form method="POST" enctype="multipart/form-data">
             <?php if (isset($errors) && !empty($errors)): ?>
@@ -33,6 +33,25 @@
                 <label for="email"><i class="fas fa-user"></i> Full Name</label>
                 <input type="email" class="form-control" id="email" name="email"
                     value="<?= isset($user->email) ? $user->email : '' ?>" placeholder="Enter your Name" />
+            </div>
+
+            <div class="form-check form-check-inline">
+                Language:
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="language" id="inlineRadio1" value="ar">
+                <label class="form-check-label" for="inlineRadio1">العربية</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="language" id="inlineRadio2" value="eng">
+                <label class="form-check-label" for="inlineRadio2">English</label>
+            </div>
+
+
+            <div class="form-group mb-3">
+                <label for="oldPassword"><i class="fas fa-lock"></i> Old Password</label>
+                <input type="password" class="form-control" id="oldPassword" name="oldPassword"
+                    placeholder="Enter your old password" />
             </div>
             <div class="form-group mb-3">
                 <label for="password"><i class="fas fa-lock"></i> Password</label>
