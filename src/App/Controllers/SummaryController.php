@@ -88,10 +88,10 @@ class SummaryController extends BaseController
             $output['file'] = $fileName;
 
         if (App::isGuest())
-            $output['author'] = 0;
+            $output['user_id'] = 0;
         else {
             app('session')->start();
-            $output['author'] = $_SESSION['user']->id;
+            $output['user_id'] = $_SESSION['user']->id;
         }
         $out = Summary::create($output)->save();
         return view(
@@ -118,7 +118,7 @@ class SummaryController extends BaseController
         if (is_null($feedbackType) || empty($summaryId))
             Response::redirect('/summarize');
         $userId = App::isGuest() ? 0 : $_SESSION['user']->id;
-        $summary = Summary::one(['id' => $summaryId, 'author' => $userId]);
+        $summary = Summary::one(['id' => $summaryId, 'user_id' => $userId]);
         if ($summary) {
             $summary->feedback = $feedbackType;
             $summary->save();

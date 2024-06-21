@@ -4,7 +4,7 @@
 <div class="container my-5">
     <div class="historical-container">
         <div class="api-header">
-            <h1><?= __('Welcome,') ?> <?= $name ?></h1>
+            <h1><?= $name ?> API</h1>
         </div>
 
         <div class="table-container">

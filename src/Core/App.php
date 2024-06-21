@@ -8,6 +8,7 @@ use Core\Utility\Encryption;
 
 class App
 {
+    public static $currentLanguage = 'ar';
     public static ?App $singleton = null;
     private array $configurations;
     public BaseController $controller;
@@ -66,5 +67,15 @@ class App
         } catch (\Exception $e) {
             echo view('_error', ['error' => $e]);
         }
+    }
+    public static function getCurrentLanguage()
+    {
+        app('session')->start();
+        if (App::isGuest() && !isset($_SESSION['language']))
+            $_SESSION['language'] = App::$currentLanguage;
+        elseif (!App::isGuest())
+            $_SESSION['language'] = $_SESSION['user']->language;
+
+        return $_SESSION['language'];
     }
 }

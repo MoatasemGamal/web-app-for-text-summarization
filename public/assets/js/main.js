@@ -28,20 +28,20 @@ function changeTheme() {
   logo.src = logo.src == darkLogoPath ? lightLogoPath : darkLogoPath;
 }
 
-if (themeCookie === null) {
-  createCookie("theme", "light", 7);
-} else {
-  document.body.dataset.bsTheme = themeCookie;
-  if (themeCookie == "dark") {
-    document.getElementById("themeChangerBtn").checked = true;
-    document.getElementById("brand-logo").src = darkLogoPath;
-    document.getElementById("themeChangerLbl").innerHTML = "Light Mode";
-  } else {
-    document.getElementById("themeChangerBtn").checked = false;
-    document.getElementById("brand-logo").src = lightLogoPath;
-    document.getElementById("themeChangerLbl").innerHTML = "Dark Mode";
-  }
-}
+// if (themeCookie === null) {
+//   createCookie("theme", "light", 7);
+// } else {
+//   document.body.dataset.bsTheme = themeCookie;
+//   if (themeCookie == "dark") {
+//     document.getElementById("themeChangerBtn").checked = true;
+//     document.getElementById("brand-logo").src = darkLogoPath;
+//     document.getElementById("themeChangerLbl").innerHTML = "Light Mode";
+//   } else {
+//     document.getElementById("themeChangerBtn").checked = false;
+//     document.getElementById("brand-logo").src = lightLogoPath;
+//     document.getElementById("themeChangerLbl").innerHTML = "Dark Mode";
+//   }
+// }
 
 function clearAllText() {
   document.getElementById("fullText").value = "";
@@ -72,10 +72,10 @@ function detectLanguage() {
 
   if (arabicCount > englishCount) {
     document.getElementById("fullText").style.direction = "rtl";
-    createCookie("language", "arabic", 7);
+    // createCookie("language", "arabic", 7);
   } else {
     document.getElementById("fullText").style.direction = "ltr";
-    createCookie("language", "english", 7);
+    // createCookie("language", "english", 7);
   }
 }
 
@@ -137,19 +137,19 @@ function submitFeedback(feedbackType) {
 }
 
 // language Cookie
-const languageCookie = getCookie("language");
+// const languageCookie = getCookie("language");
 
-if (languageCookie === null) {
-  createCookie("language", "arabic", 7);
-} else {
-  if (languageCookie == "arabic") {
-    document.getElementById("summarizedText").style.direction = "rtl";
-    document.getElementById("fullText").style.direction = "rtl";
-  } else {
-    document.getElementById("summarizedText").style.direction = "ltr";
-    document.getElementById("fullText").style.direction = "ltr";
-  }
-}
+// if (languageCookie === null) {
+//   createCookie("language", "arabic", 7);
+// } else {
+//   if (languageCookie == "arabic") {
+//     document.getElementById("summarizedText").style.direction = "rtl";
+//     document.getElementById("fullText").style.direction = "rtl";
+//   } else {
+//     document.getElementById("summarizedText").style.direction = "ltr";
+//     document.getElementById("fullText").style.direction = "ltr";
+//   }
+// }
 
 document.getElementById("fullText").addEventListener("input", handleInput);
 document
@@ -184,39 +184,39 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  function changeTheme() {
-    let body = document.body;
-    let themeChangerLbl = document.getElementById("themeChangerLbl");
-    let logo = document.getElementById("brand-logo");
-    body.dataset.bsTheme = body.dataset.bsTheme == "light" ? "dark" : "light";
-    createCookie("theme", body.dataset.bsTheme, 7);
+  // function changeTheme() {
+  //   let body = document.body;
+  //   let themeChangerLbl = document.getElementById("themeChangerLbl");
+  //   let logo = document.getElementById("brand-logo");
+  //   body.dataset.bsTheme = body.dataset.bsTheme == "light" ? "dark" : "light";
+  //   createCookie("theme", body.dataset.bsTheme, 7);
 
-    themeChangerLbl.innerHTML =
-      themeChangerLbl.innerHTML == "Light Mode" ? "Dark Mode" : "Light Mode";
+  //   themeChangerLbl.innerHTML =
+  //     themeChangerLbl.innerHTML == "Light Mode" ? "Dark Mode" : "Light Mode";
 
-    logo.src = logo.src == darkLogoPath ? lightLogoPath : darkLogoPath;
-  }
+  //   logo.src = logo.src == darkLogoPath ? lightLogoPath : darkLogoPath;
+  // }
 
-  function changeLanguage(lang) {
-    createCookie("language", lang, 7);
-    location.reload();
-  }
+  // function changeLanguage(lang) {
+  //   createCookie("language", lang, 7);
+  //   location.reload();
+  // }
 
-  const themeCookie = getCookie("theme");
-  if (themeCookie !== null) {
-    document.body.dataset.bsTheme = themeCookie;
-  }
+  // const themeCookie = getCookie("theme");
+  // if (themeCookie !== null) {
+  //   document.body.dataset.bsTheme = themeCookie;
+  // }
 
-  const languageCookie = getCookie("language");
-  if (languageCookie !== null) {
-    if (languageCookie === "arabic") {
-      document.getElementById("arabicRadio").checked = true;
-      document.body.setAttribute("lang", "ar");
-    } else {
-      document.getElementById("englishRadio").checked = true;
-      document.body.setAttribute("lang", "en");
-    }
-  }
+  // const languageCookie = getCookie("language");
+  // if (languageCookie !== null) {
+  //   if (languageCookie === "arabic") {
+  //     document.getElementById("arabicRadio").checked = true;
+  //     document.body.setAttribute("lang", "ar");
+  //   } else {
+  //     document.getElementById("englishRadio").checked = true;
+  //     document.body.setAttribute("lang", "en");
+  //   }
+  // }
 
   document.getElementById("fullText").addEventListener("input", handleInput);
   document

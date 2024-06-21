@@ -48,117 +48,36 @@ if (!function_exists("app")) {
     }
 
 }
-
-
-if (!function_exists("transcribeAudio")) {
-
-    function transcribeAudio($audioFilePath)
+if (!function_exists('__')) {
+    function __($phrase, ...$params)
     {
-        $command = 'python ' . SRC_PATH . "transcribe.py $audioFilePath";
-        $output = shell_exec($command);
-        return $output;
-    }
-}
-if (!function_exists("isAudioFile")) {
-
-    function isAudioFile($extension)
-    {
-        $audioExtensions = array('mp3', 'wav', 'ogg', 'flac', 'mp4', 'mkv');
-        return in_array(strtolower($extension), $audioExtensions);
-    }
-}
-if (!function_exists("processFile")) {
-
-    function processFile($filePath)
-    {
-        $content = "Unsupported file type";
-        $fileExtension = pathinfo($filePath, PATHINFO_EXTENSION);
-
-        if ($fileExtension === 'txt') {
-            $content = file_get_contents($filePath);
-        } elseif (isAudioFile($fileExtension)) {
-            $content = transcribeAudio($filePath);
-        } elseif ($fileExtension === 'pdf') {
-            $content = extractTextFromPDF($filePath);
+        //load translates
+        $languages = [];
+        $langsFiles = glob(LANGUAGES_PATH . '*.php');
+        foreach ((array) $langsFiles as $langFile) {
+            $languages = array_merge($languages, (array) include "$langFile");
         }
-
-        return $content;
-    }
-}
-if (!function_exists("extractTextFromPDF")) {
-
-
-    function extractTextFromPDF($filePath)
-    {
-        $command = "python '" . SRC_PATH . "extractTextFromPDF.py' '$filePath' 2>&1";
-        $command = str_replace('\\', '/', $command);
-        $output = shell_exec($command);
-        return $output;
+        $phrase = strtolower($phrase);
+        $l = App::getCurrentLanguage();
+        if (isset($languages[$l][$phrase])) {
+            if (str_contains($languages[$l][$phrase], '%d%')) {
+                //$count = substr_count($languages[$l][$phrase], '%d%');
+                //if (count((array)$params) == $count) {
+                $trans = $languages[$l][$phrase];
+                foreach ((array) $params as $param) {
+                    $trans = str_replace_first('%d%', $param, $trans);
+                }
+                return $trans;
+                //}
+            } else
+                return $languages[$l][$phrase];
+        } else
+            return $phrase;
     }
 }
 
 
 // Summarize via API
-if (!function_exists("summarize")) {
-
-    function summarize($text, $model, $summaryLength)
-    {
-        /*
-        // API endpoint URL
-        $url = 'http://example.com/summarize';
-
-        // Data to be sent in the POST request
-        $postData = [
-            'text' => $text,
-            'model' => $model,
-            'summaryLength' => $summaryLength
-        ];
-
-        // Initialize cURL session
-        $ch = curl_init($url);
-
-        // Set cURL options
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Return the response as a string
-        curl_setopt($ch, CURLOPT_POST, true); // Set the request method to POST
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData)); // Set the POST data
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Content-Type: application/x-www-form-urlencoded'
-        ]);
-
-        // Execute cURL session
-        $response = curl_exec($ch);
-
-        // Check for cURL errors
-        if ($response === false) {
-            $error = curl_error($ch);
-            curl_close($ch);
-            return ['error' => 'Curl error: ' . $error];
-        }
-
-        // Close cURL session
-        curl_close($ch);
-
-        // Decode JSON response
-        $responseData = json_decode($response, true);
-
-        // Check if JSON decoding was successful
-        if ($responseData === null && json_last_error() !== JSON_ERROR_NONE) {
-            return ['error' => 'Error decoding JSON response'];
-        }
-*/
-        $responseData = [
-            'text' => $text,
-            'summary' => 'الملخص',
-            'model' => $model,
-        ]
-        ;
-        // Return associative array
-        return $responseData;
-    }
-}
-
-
-
 function sendSummaryRequest($text, $model, $summaryLength, $file_path = null)
 {
     $url = 'https://8000-01j0rxmpy4b3a7fq5db4ntmdme.cloudspaces.litng.ai/';

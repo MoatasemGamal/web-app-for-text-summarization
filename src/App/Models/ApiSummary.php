@@ -5,16 +5,16 @@ use Core\Bases\BaseModel;
 use Core\Bases\SoftDeletesTreat;
 use Core\Bases\TimeStampsTrait;
 
-class Summary extends BaseModel
+class ApiSummary extends BaseModel
 {
-    protected static string $table = 'summaries';
+    protected static string $table = 'api_summaries';
     protected static array $attributes = [
         'file',
         'text',
         'cleaned_text',
         'summary',
         'model',
-        'user_id',
+        'api_id',
         'feedback'
     ];
 

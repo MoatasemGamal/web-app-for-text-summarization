@@ -10,6 +10,11 @@ require_once (CORE_PATH . "helpers.php");
 session_name("SESSID");
 session_save_path(SESSIONS_PATH);
 
+// Disable warnings
+ini_set('display_errors', 'off'); // Turns off display of errors and warnings
+ini_set('error_reporting', E_ALL & ~E_NOTICE & ~E_WARNING); // Adjust error reporting level
+
+
 $configurations = [
     "database" => [
         "dsn" => DSN,
@@ -28,11 +33,3 @@ $configurations = [
 App::init($configurations);
 
 App::$singleton->run();
-?>
-<script>
-    // Call handleInput initially if there is already text loaded
-    handleInput();
-
-    // Update counters initially
-    updateCounters();
-</script>

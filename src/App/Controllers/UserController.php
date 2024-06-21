@@ -235,7 +235,7 @@ class UserController extends BaseController
 
     public function history()
     {
-        $result = Summary::paginate(3, ['author' => $_SESSION['user']->id]);
+        $result = Summary::paginate(3, ['user_id' => $_SESSION['user']->id]);
         $result['name'] = $_SESSION['user']->name;
         return view('history', $result);
     }
