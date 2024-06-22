@@ -170,7 +170,8 @@ class UserController extends BaseController
     {
         // Retrieve and filter inputs
         $name = trim(filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING));
-        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+        // $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+        $oldPassword = filter_input(INPUT_POST, 'oldPassword');
         $password = filter_input(INPUT_POST, 'password');
         $confirmPassword = filter_input(INPUT_POST, 'confirmPassword');
 
@@ -183,18 +184,21 @@ class UserController extends BaseController
         elseif (strlen($name) < 3)
             $errors['name'] = "Name should be at least 3 characters long";
 
+        if (!empty($oldPassword) && !password_verify($oldPassword, $_SESSION['user']->password))
+            $errors['oldPassword'] = "oldPassword not valid";
+
         // Validate email
-        if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errors['email'] = "Invalid email format";
-        } elseif (!empty($email) && $_SESSION['user']->email !== $email && User::one(['email' => $email])) {
-            pre($_SESSION['user']->email != $email, $_SESSION['user']->email, );
-            $errors['email'] = "Email already exists";
-        }
+        // if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        //     $errors['email'] = "Invalid email format";
+        // } elseif (!empty($email) && $_SESSION['user']->email !== $email && User::one(['email' => $email])) {
+        //     pre($_SESSION['user']->email != $email, $_SESSION['user']->email, );
+        //     $errors['email'] = "Email already exists";
+        // }
 
         // Validate password
-        if (!empty($password) && strlen($password) < 6)
+        if (!empty($oldPassword) && !empty($password) && strlen($password) < 6)
             $errors['password'] = "Password should be at least 6 characters long";
-        elseif (!empty($password) && $password !== $confirmPassword)
+        elseif (!empty($oldPassword) && !empty($password) && $password !== $confirmPassword)
             $errors['password'] = "Confirm Password should be the same as Password";
 
         // Handle file upload for avatar
@@ -217,7 +221,7 @@ class UserController extends BaseController
 
         // Update user profile
         $_SESSION['user']->name = $name;
-        $_SESSION['user']->email = $email;
+        // $_SESSION['user']->email = $email;
         if (!empty($password)) {
             $_SESSION['user']->password = password_hash($password, PASSWORD_DEFAULT);
         }
