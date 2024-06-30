@@ -4,7 +4,6 @@ namespace App\Models;
 use Core\Bases\BaseModel;
 use Core\Bases\TimeStampsTrait;
 
-
 class User extends BaseModel
 {
     protected static array $attributes = [
@@ -16,9 +15,8 @@ class User extends BaseModel
     ];
     use TimeStampsTrait;
 
-
-    // public function post()
-    // {
-    //     return $this->hasMany(Post::class);
-    // }
+    public function apis()
+    {
+        return $this->hasMany(Api::class);
+    }
 }

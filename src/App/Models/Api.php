@@ -15,9 +15,8 @@ class Api extends BaseModel
     ];
     use TimeStampsTrait;
 
-
-    // public function posts()
-    // {
-    //     return $this->manyToMany(Post::class);
-    // }
+    public function author()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

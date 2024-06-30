@@ -89,5 +89,27 @@ return [
         'password can\'t be empty' => 'لا يمكن أن تكون كلمة المرور فارغة',
         'password should be at least 6 characters long' => 'يجب أن تكون كلمة المرور على الأقل 6 أحرف',
         'confirm password should be the same as password' => 'يجب أن تكون تأكيد كلمة المرور مطابقة لكلمة المرور',
+        //landing
+        'web text summarization' => 'تلخيص النصوص',
+        'welcome to the web text summarization tool' => 'مرحبًا بك في أداة تلخيص النصوص',
+        'summarize your texts efficiently with our state-of-the-art summarization models.' => 'لخص نصوصك بكفاءة باستخدام نماذج التلخيص المتطورة لدينا.',
+        'get started' => 'ابدأ الآن',
+        'features' => 'الميزات',
+        'multi-language support' => 'دعم متعدد اللغات',
+        'our tool supports both english and arabic languages for text summarization.' => 'تدعم أداتنا اللغتين الإنجليزية والعربية لتلخيص النصوص.',
+        'upload options' => 'خيارات التحميل',
+        'upload pdf or txt files to get a summarized version of the text.' => 'قم بتحميل ملفات PDF أو TXT للحصول على نسخة مختصرة من النص.',
+        'customizable summaries' => 'ملخصات قابلة للتخصيص',
+        'control the length of your summaries with ease.' => 'تحكم في طول ملخصاتك بسهولة.',
+        'user history' => 'تاريخ المستخدم',
+        'track and manage your summarization history.' => 'تتبع وأدر سجل التلخيص الخاص بك.',
+        'how it works' => 'كيف تعمل',
+        'upload your text file.' => 'قم بتحميل ملف النص الخاص بك.',
+        'choose the desired summary length.' => 'اختر الطول المطلوب للملخص.',
+        'get your summarized text instantly.' => 'احصل على نصك الملخص على الفور.',
+        'about the project' => 'حول المشروع',
+        'this project is developed as a capstone project aiming to improve information accessibility and management through advanced text summarization techniques.' => 'تم تطوير هذا المشروع كمشروع تخرج يهدف إلى تحسين الوصول إلى المعلومات وإدارتها من خلال تقنيات تلخيص النصوص المتقدمة.',
+        'step' => 'خطوة'
+
     ]
 ];

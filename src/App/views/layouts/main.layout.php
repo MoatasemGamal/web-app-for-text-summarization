@@ -15,41 +15,6 @@ $dir = App::getCurrentLanguage() == 'ar' ? 'rtl' : 'ltr';
   <link rel="stylesheet" href="/assets/css/fontawesome.min.css" />
   <link rel="stylesheet" href="/assets/css/main.css" />
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-  <?php /*
-<script>
-function getCookie(name) {
-const cookieName = name + "=";
-const decodedCookie = decodeURIComponent(document.cookie);
-const cookieArray = decodedCookie.split(";");
-for (let i = 0; i < cookieArray.length; i++) {
-let cookie = cookieArray[i];
-while (cookie.charAt(0) === " ") {
-cookie = cookie.substring(1);
-}
-if (cookie.indexOf(cookieName) === 0) {
-return cookie.substring(cookieName.length, cookie.length);
-}
-}
-return null;
-}
-
-function createCookie(name, value, days) {
-let expires = "";
-if (days) {
-const date = new Date();
-date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-expires = "; expires=" + date.toUTCString();
-}
-document.cookie = name + "=" + value + expires + "; path=/";
-}
-
-const themeCookie = getCookie("theme");
-
-if (themeCookie === null) {
-createCookie("theme", "light", 7);
-}
-</script>
-*/ ?>
 </head>
 
 <body data-bs-theme="light" class="bg-body-secondary">
@@ -66,18 +31,8 @@ createCookie("theme", "light", 7);
           <i class="fa-solid fa-bars"></i>
         </button>
         <ul class="dropdown-menu p-1" aria-labelledby="dropdownMenuButton" dir="ltr">
-          <!-- <li>
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" id="themeChangerBtn" onchange="changeTheme()" />
-              <label class="form-check-label" for="themeChangerBtn">Dark Mode</label>
-            </div>
-          </li> 
-          <li>
-            <hr class="dropdown-divider" />
-          </li>-->
           <li>
             <div class="form-check">
-              <!-- Assuming you are using Blade templating based on the PHP tags used -->
               <a href="/change-language/<?= App::getCurrentLanguage() == 'ar' ? 'en' : 'ar' ?>">
                 <?php if (App::getCurrentLanguage() == 'ar'): ?>
                   <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">

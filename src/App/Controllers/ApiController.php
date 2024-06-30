@@ -3,14 +3,9 @@
 namespace App\Controllers;
 
 use App\Middleware\PreventGuestMiddleware;
-use App\Middleware\PreventLoggedMiddleware;
 use App\Models\Api;
 use App\Models\ApiSummary;
-use App\Models\Summary;
-use App\Models\User;
-use Core\App;
 use Core\Bases\BaseController;
-use Core\Http\Request;
 use Core\Http\Response;
 
 
@@ -53,7 +48,7 @@ class ApiController extends BaseController
                 $name = $api->name;
             if (!isset($_GET['status']))
                 $status = $api->status;
-            $api->edit(['name' => $name, 'status' => $status])->save();
+            $api->edit(['name' => $name, 'status' => (int) ($status)])->save();
         }
         return Response::redirect('/apis');
     }
@@ -72,7 +67,6 @@ class ApiController extends BaseController
     {
         $token = $token[0];
         $api = Api::one(['token' => $token]);
-        // pre($api);
         if (!$api || !$api->status)
             return json_encode(['success' => false, 'errors' => ['API is suspend']]);
 
@@ -82,6 +76,7 @@ class ApiController extends BaseController
             'textRank' => 'textRank',
             'mbartExtractive' => 'mbartExtractive',
             'mbartAbstractive' => 'mbartAbstractive',
+            'pegasus' => 'pegasus',
             'transformer' => 'transformer',
             default => 'textRank'
         };
@@ -96,7 +91,6 @@ class ApiController extends BaseController
         if ((empty($text)) || strlen($text) < 100)
             $errors[] = "text length must be more than 100 char";
 
-        // pre($errors);
         if (!empty($errors))
             return json_encode(['success' => false, 'errors' => $errors]);
 
@@ -110,9 +104,6 @@ class ApiController extends BaseController
         $result = $output;
         $result['success'] = true;
         $result['errors'] = [];
-
-
-
 
         $output['api_id'] = $api->id;
 

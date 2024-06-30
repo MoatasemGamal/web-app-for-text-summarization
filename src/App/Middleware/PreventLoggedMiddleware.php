@@ -4,7 +4,6 @@ namespace App\Middleware;
 
 use Core\App;
 use Core\Bases\BaseMiddleware;
-use Core\Utility\Session;
 
 class PreventLoggedMiddleware extends BaseMiddleware
 {

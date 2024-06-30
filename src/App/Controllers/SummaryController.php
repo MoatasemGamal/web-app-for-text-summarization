@@ -2,13 +2,9 @@
 
 namespace App\Controllers;
 
-use App\Middleware\PreventGuestMiddleware;
-use App\Middleware\PreventLoggedMiddleware;
 use App\Models\Summary;
-use App\Models\User;
 use Core\App;
 use Core\Bases\BaseController;
-use Core\Http\Request;
 use Core\Http\Response;
 
 
@@ -125,5 +121,4 @@ class SummaryController extends BaseController
         }
         return view('feedback');
     }
-
 }

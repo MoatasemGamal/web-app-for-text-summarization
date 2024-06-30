@@ -8,4 +8,5 @@
         <hr class="my-4">
         <a class="btn btn-primary btn-lg" href="/summarize" role="button"><?= __('Summarize another one') ?></a>
     </div>
-</div>@endSection
+</div>
+@endSection

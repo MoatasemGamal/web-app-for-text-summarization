@@ -6,15 +6,12 @@ use App\Middleware\PreventGuestMiddleware;
 use App\Middleware\PreventLoggedMiddleware;
 use App\Models\Summary;
 use App\Models\User;
-use Core\App;
 use Core\Bases\BaseController;
 use Core\Http\Request;
 use Core\Http\Response;
 
-
 class UserController extends BaseController
 {
-
     public function __construct()
     {
         $this->registerMiddleware(new PreventGuestMiddleware(['profile', 'editProfile']));
@@ -186,14 +183,6 @@ class UserController extends BaseController
 
         if (!empty($oldPassword) && !password_verify($oldPassword, $_SESSION['user']->password))
             $errors['oldPassword'] = "oldPassword not valid";
-
-        // Validate email
-        // if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        //     $errors['email'] = "Invalid email format";
-        // } elseif (!empty($email) && $_SESSION['user']->email !== $email && User::one(['email' => $email])) {
-        //     pre($_SESSION['user']->email != $email, $_SESSION['user']->email, );
-        //     $errors['email'] = "Email already exists";
-        // }
 
         // Validate password
         if (!empty($oldPassword) && !empty($password) && strlen($password) < 6)
