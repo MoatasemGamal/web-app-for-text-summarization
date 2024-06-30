@@ -1,5 +1,5 @@
 nbproject/
 .vscode/
 config.php
-vendor
+# vendor
 public/uploads/*
